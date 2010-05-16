@@ -193,7 +193,7 @@ function check_version(&$up_to_date, &$latest_version, &$announcement_url)
 	// Check the version, load out remote version check file!
 	$errstr = '';
 	$errno = 0;
-	$info = get_remote_file('subversion.assembla.com', '/versions', ((!defined('SALVE_DEV_COPY')) ? 'salve_10x.txt' : 'salve_10x_dev.txt'), $errstr, $errno);
+	$info = get_remote_file('github.com', '/LoneWolfy/Salve/raw/master/versions/', ((!defined('SALVE_DEV_COPY')) ? 'salve_10x.txt' : 'salve_10x_dev.txt'), $errstr, $errno);
 	if ($info === false)
 	{
 		trigger_error($errstr, E_USER_WARNING);
