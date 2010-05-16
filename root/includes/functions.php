@@ -13,8 +13,6 @@
 *
 *===================================================================
 *
-*	This file contains code from phpBB.
-*
 */
 
 if (!defined('IN_SALVE'))
@@ -22,7 +20,7 @@ if (!defined('IN_SALVE'))
 	exit;
 }
 //set_var - Set variable, used by the request_var function.
-function salve_set_var(&$result, $var, $type, $multibyte = false)
+function set_var(&$result, $var, $type, $multibyte = false)
 {
 	settype($var, $type);
 	$result = $var;
@@ -53,7 +51,7 @@ function salve_set_var(&$result, $var, $type, $multibyte = false)
 }
 
 // request_var - Used to get passed variable
-function salve_request_var($var_name, $default, $multibyte = false, $cookie = false)
+function request_var($var_name, $default, $multibyte = false, $cookie = false)
 {
 	if (!$cookie && isset($_COOKIE[$var_name]))
 	{
@@ -98,7 +96,7 @@ function salve_request_var($var_name, $default, $multibyte = false, $cookie = fa
 
 		foreach ($_var as $k => $v)
 		{
-			salve_set_var($k, $k, $key_type);
+			set_var($k, $k, $key_type);
 			if ($type == 'array' && is_array($v))
 			{
 				foreach ($v as $_k => $_v)
@@ -107,8 +105,8 @@ function salve_request_var($var_name, $default, $multibyte = false, $cookie = fa
 					{
 						$_v = null;
 					}
-					salve_set_var($_k, $_k, $sub_key_type);
-					salve_set_var($var[$k][$_k], $_v, $sub_type, $multibyte);
+					set_var($_k, $_k, $sub_key_type);
+					set_var($var[$k][$_k], $_v, $sub_type, $multibyte);
 				}
 			}
 			else
@@ -117,13 +115,13 @@ function salve_request_var($var_name, $default, $multibyte = false, $cookie = fa
 				{
 					$v = null;
 				}
-				salve_set_var($var[$k], $v, $type, $multibyte);
+				set_var($var[$k], $v, $type, $multibyte);
 			}
 		}
 	}
 	else
 	{
-		salve_set_var($var, $var, $type, $multibyte);
+		set_var($var, $var, $type, $multibyte);
 	}
 
 	return $var;
@@ -193,7 +191,7 @@ function check_version(&$up_to_date, &$latest_version, &$announcement_url)
 	// Check the version, load out remote version check file!
 	$errstr = '';
 	$errno = 0;
-	$info = get_remote_file('github.com', '/LoneWolfy/Salve/raw/master/versions/', ((!defined('SALVE_DEV_COPY')) ? 'salve_10x.txt' : 'salve_10x_dev.txt'), $errstr, $errno);
+	$info = get_remote_file('subversion.assembla.com', '/versions', ((!defined('SALVE_DEV_COPY')) ? 'xerxes.txt' : 'xerxes_dev.txt'), $errstr, $errno);
 	if ($info === false)
 	{
 		trigger_error($errstr, E_USER_WARNING);
